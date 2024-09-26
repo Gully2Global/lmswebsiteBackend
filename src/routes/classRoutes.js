@@ -1,0 +1,36 @@
+// src/routes/classRoutes.js
+
+const express = require("express");
+const router = express.Router();
+const classController = require("../controllers/classController");
+const authMiddleware = require("../middlewares/authMiddleware"); // Assuming you have this for protected routes
+const authorizeRole = require("../middlewares/authorizeRole");
+
+// Create a new class (POST)
+router.post(
+  "/",
+  authMiddleware,
+  authorizeRole("admin"),
+  classController.createClass
+);
+
+// Get all classes (GET)
+router.get("/", authMiddleware, classController.getAllClasses);
+
+// Update a class (PUT)
+router.put(
+  "/:classId",
+  authMiddleware,
+  authorizeRole("admin"),
+  classController.updateClass
+);
+
+// Delete a class (DELETE)
+router.delete(
+  "/:classId",
+  authMiddleware,
+  authorizeRole("admin"),
+  classController.deleteClass
+);
+
+module.exports = router;

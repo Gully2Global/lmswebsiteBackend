@@ -16,10 +16,8 @@ const userSchema = new mongoose.Schema({
   },
   password: { type: String },
   fcmToken: { type: String },
-  access_token: { type: String ,required:true},
-  refresh_token: { type: String ,required:true},
-
-
+  access_token: { type: String },
+  refresh_token: { type: String },
 });
 
 module.exports = mongoose.model("User", userSchema);

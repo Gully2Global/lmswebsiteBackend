@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const teacherApplicationSchema = new mongoose.Schema({
   teacher_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Teacher",
+    ref: "User", // Reference the User model
     required: true,
   },
   resume_link: {
@@ -38,6 +38,10 @@ const teacherApplicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  language:{
+    type:String,
+    required:true
+  }
 });
 
 module.exports = mongoose.model("TeacherApplication", teacherApplicationSchema);

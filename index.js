@@ -4,6 +4,9 @@ const cors = require("cors");
 const helmet = require("helmet");
 const connectDB = require("./src/config/database");
 const authRoutes = require("./src/routes/authRoutes");
+const classRoutes = require("./src/routes/classRoutes");
+const subjectRoutes = require("./src/routes/subjectRoutes");
+
 require("dotenv").config();
 
 const app = express();
@@ -18,12 +21,16 @@ app.use(helmet());
 
 // Routes
 app.use("/auth", authRoutes);
+const teacherApplicationRoutes = require("./src/routes/teacherApplicationRoutes");
 
 // Error Handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong!" });
 });
+app.use("/teacher-application", teacherApplicationRoutes);
+app.use("/classes", classRoutes);
+app.use("/subjects", subjectRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;

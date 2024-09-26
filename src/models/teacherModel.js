@@ -9,8 +9,11 @@ const teacherSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  role: { type: String, enum: ["teacher", "admin"], required: true }, // No need for 'student' here if it's specific to teachers
+  role: { type: String, enum: ["teacher", "admin"], required: true },
 
+
+
+  
   qualifications: { type: String },
   bio: { type: String },
   approval_status: {
@@ -23,13 +26,12 @@ const teacherSchema = new mongoose.Schema({
   subject: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Subject",
-    required: true,
   },
-  last_online: { type: Date, default: Date.now, required: true },
-  experience: { type: String, required: true },
-  no_of_classes: { type: Number, required: true },
-  available_time: { type: String, required: true },
-  language: { type: String, required: true },
+  last_online: { type: Date, default: Date.now },
+  experience: { type: String },
+  no_of_classes: { type: Number },
+  available_time: { type: String },
+  language: { type: String },
   is_grammar_teacher: { type: Boolean, default: false },
 });
 

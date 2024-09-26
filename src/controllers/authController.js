@@ -25,7 +25,7 @@ const User = require("../models/userModel");
  */
 exports.signup = async (req, res) => {
   const authHeader = req.headers.authorization;
-  const { role } = req.body; // Optionally get role from request body
+  const { role } = req.body; // Get role from request body
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ error: "Unauthorized: No token provided" });
@@ -34,27 +34,29 @@ exports.signup = async (req, res) => {
   const idToken = authHeader.split("Bearer ")[1];
 
   try {
- 
+    // Verify Firebase ID token
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const uid = decodedToken.uid;
 
-
+    // Check if user already exists
     let user = await User.findOne({ auth_id: uid });
 
     if (user) {
       return res.status(400).json({ error: "User already exists" });
     }
 
-    const userRole = ["student", "teacher"].includes(role) ? role : "student";
+    // Set user role
+    const userRole = ["student", "teacher", "admin"].includes(role)
+      ? role
+      : "student";
 
+    // Create new user
     user = new User({
       auth_id: uid,
       email: decodedToken.email || null,
       name: decodedToken.name || "Anonymous",
       role: userRole,
-     
       approval_status: "pending",
-
     });
 
     await user.save();
@@ -87,11 +89,11 @@ exports.signin = async (req, res) => {
   const idToken = authHeader.split("Bearer ")[1];
 
   try {
-
+    // Verify Firebase ID token
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const uid = decodedToken.uid;
 
-
+    // Fetch user from database
     let user = await User.findOne({ auth_id: uid });
 
     if (!user) {
