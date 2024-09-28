@@ -108,3 +108,42 @@ exports.signin = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+/**
+ * Handles logout process for users.
+ *
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ *
+ * @returns {Promise<void>}
+ */
+/**
+ * @description
+ * 1. Verify the Firebase ID token to ensure it is valid.
+ * 2. Revoke all refresh tokens for the user.
+ * 3. Return a 200 response with a success message.
+ */
+exports.logout = async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Unauthorized: No token provided" });
+  }
+
+  const idToken = authHeader.split("Bearer ")[1];
+
+  try {
+    // Verify Firebase ID token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    // Revoke refresh tokens for the user
+    await admin.auth().revokeRefreshTokens(uid);
+
+    res.status(200).json({ message: "User logged out successfully" });
+  } catch (error) {
+    console.error("Error during logout:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
