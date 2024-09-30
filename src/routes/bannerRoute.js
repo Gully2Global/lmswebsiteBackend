@@ -13,4 +13,21 @@ router.post(
   bannerController.createBanner
 );
 
+router.put(
+  "/:banner_id",
+  upload.single("banner_image"),
+  authMiddleware,
+  authorizeRole("admin"),
+  bannerController.updateBanner
+);
+
+router.delete(
+  "/:banner_id",
+  authMiddleware,
+  authorizeRole("admin"),
+  bannerController.deleteBanner
+);
+
+router.get("/", bannerController.getBanners);
+
 module.exports = router;
