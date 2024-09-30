@@ -3,37 +3,28 @@
 const multer = require("multer");
 const path = require("path");
 
-// Set storage engine
-const storage = multer.diskStorage({
-  destination: "./uploads/resumes/",
-  filename: function (req, file, cb) {
-    cb(null, "resume-" + Date.now() + path.extname(file.originalname));
-  },
-});
+// Define storage strategy
+const storage = multer.memoryStorage(); // Store file in memory temporarily
 
-// Init upload
+// File filter to allow only image files
+const fileFilter = (req, file, cb) => {
+  const allowedMimeTypes = ["image/jpeg", "image/png", "image/gif"];
+  if (allowedMimeTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only .jpeg, .png, .gif formats are allowed!"), false);
+  }
+};
+
+// Set limits (optional)
+const limits = {
+  fileSize: 1024 * 1024 * 5, // Limit file size to 5MB
+};
+
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1000000 }, // Limit file size to 1MB
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
+  fileFilter: fileFilter,
+  limits: limits,
 });
-
-// Check file type
-function checkFileType(file, cb) {
-  // Allowed ext
-  const filetypes = /pdf|doc|docx/;
-  // Check ext
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  // Check mime
-  const mimetype = filetypes.test(file.mimetype);
-
-  if (mimetype && extname) {
-    return cb(null, true);
-  } else {
-    cb("Error: Resumes must be in PDF or Word format!");
-  }
-}
 
 module.exports = upload;

@@ -8,6 +8,8 @@ exports.createSubject = async (req, res) => {
       language,
       approval_status,
       is_grammar_subject,
+      subject_image,
+
     } = req.body;
 
     if (!subject_name || !class_id || !language) {
@@ -15,6 +17,7 @@ exports.createSubject = async (req, res) => {
     }
     const newSubject = new Subject({
       subject_name,
+      subject_image,
       class_id,
       language,
       approval_status,
@@ -47,6 +50,7 @@ exports.updateSubjects = async (req, res) => {
       subject_name,
       class_id,
       language,
+      subject_image,
       approval_status,
       is_grammar_subject,
     } = req.body;
@@ -55,6 +59,7 @@ exports.updateSubjects = async (req, res) => {
       {
         subject_name,
         class_id,
+        subject_image,
         language,
         approval_status,
         is_grammar_subject,

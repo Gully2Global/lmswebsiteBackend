@@ -11,6 +11,10 @@ const serviceAccount = JSON.parse(serviceAccountJSON);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
+  storageBucket: "lmseducationplaform.appspot.com",
 });
 
-module.exports = admin;
+const bucket = admin.storage().bucket();
+
+module.exports = { admin, bucket };
+  

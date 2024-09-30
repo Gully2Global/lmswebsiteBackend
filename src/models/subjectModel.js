@@ -7,6 +7,7 @@ const subjectSchema = new mongoose.Schema({
     ref: "Class",
     required: true,
   },
+  subject_image: { type: String },
   created_at: { type: Date, default: Date.now },
   language: { type: String, required: true },
   approval_status: {
