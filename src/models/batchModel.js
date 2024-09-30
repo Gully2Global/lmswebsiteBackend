@@ -14,6 +14,8 @@ const batchSchema = new mongoose.Schema({
     ref: "Student",
     required: true,
   },
+  contentMaterial: { type: String, },
+  date: { type: Date, default: Date.now },
   no_of_participant: { type: Number, default: 0 },
   meeting_link: { type: String, required: true },
 });

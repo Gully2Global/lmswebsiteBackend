@@ -5,7 +5,6 @@ exports.getProfile = async (req, res) => {
   try {
     const firebaseUid = req.user.uid;
 
-    // Find user in MongoDB
     let user = await User.findOne({ auth_id: firebaseUid });
 
     if (!user) {
