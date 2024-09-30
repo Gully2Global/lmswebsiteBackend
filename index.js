@@ -7,6 +7,7 @@ const authRoutes = require("./src/routes/authRoutes");
 const classRoutes = require("./src/routes/classRoutes");
 const subjectRoutes = require("./src/routes/subjectRoutes");
 const bannerRoutes = require("./src/routes/bannerRoute");
+const courseRoutes = require("./src/routes/courseRoute");
 
 require("dotenv").config();
 
@@ -33,6 +34,7 @@ app.use("/teacher-application", teacherApplicationRoutes);
 app.use("/classes", classRoutes);
 app.use("/subjects", subjectRoutes);
 app.use("/banners", bannerRoutes);
+app.use("/courses", courseRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
