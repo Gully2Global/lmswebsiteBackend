@@ -9,6 +9,7 @@ const subjectRoutes = require("./src/routes/subjectRoutes");
 const bannerRoutes = require("./src/routes/bannerRoute");
 const courseRoutes = require("./src/routes/courseRoute");
 const customerQueryRoutes = require("./src/routes/customerQueriesRoutes");
+const createCustomPackageRoutes = require("./src/routes/createCustomPackageRoutes");
 
 require("dotenv").config();
 
@@ -37,6 +38,7 @@ app.use("/subjects", subjectRoutes);
 app.use("/banners", bannerRoutes);
 app.use("/courses", courseRoutes);
 app.use("/queries", customerQueryRoutes);
+app.use("/customPackages", createCustomPackageRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
