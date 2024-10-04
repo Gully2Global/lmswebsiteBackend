@@ -1,5 +1,5 @@
 // src/controllers/authController.js
-const admin = require("../services/firebaseService");
+const { admin } = require("../services/firebaseService");
 const User = require("../models/userModel");
 
 /**
@@ -34,7 +34,6 @@ exports.signup = async (req, res) => {
   const idToken = authHeader.split("Bearer ")[1];
 
   try {
-    // Verify Firebase ID token
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const uid = decodedToken.uid;
 
@@ -108,7 +107,6 @@ exports.signin = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 /**
  * Handles logout process for users.
