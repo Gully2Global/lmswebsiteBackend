@@ -11,6 +11,8 @@ const courseRoutes = require("./src/routes/courseRoute");
 const customerQueryRoutes = require("./src/routes/customerQueriesRoutes");
 
 const timeSlotRoutes = require("./src/routes/timeSlotRoutes");
+const quizRoutes = require('./src/routes/quizRoutes');
+const responseRoutes = require('./src/routes/responseRoutes');
 
 const createCustomPackageRoutes = require("./src/routes/createCustomPackageRoutes");
 require("dotenv").config();
@@ -42,6 +44,8 @@ app.use("/courses", courseRoutes);
 app.use("/queries", customerQueryRoutes);
 
 app.use("/timeslots",timeSlotRoutes);
+app.use("/quizzes", quizRoutes);
+app.use("/responses", responseRoutes);
 
 app.use("/customPackages", createCustomPackageRoutes);
 

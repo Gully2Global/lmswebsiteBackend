@@ -1,5 +1,7 @@
 // src/controllers/authController.js
-const { admin } = require("../services/firebaseService");
+
+const {admin }= require("../services/firebaseService");
+
 const User = require("../models/userModel");
 
 /**
