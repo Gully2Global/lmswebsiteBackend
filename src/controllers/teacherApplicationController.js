@@ -7,14 +7,7 @@ const Teacher = require("../models/teacherModel");
 exports.createTeacherApplication = async (req, res) => {
   try {
     const userId = req.user.uid; // From auth middleware
-    const {
-      state,
-      city,
-      pincode,
-      current_position,
-      language,
-      teacherAvailability,
-    } = req.body;
+    const { state, city, pincode, current_position, language } = req.body;
 
     // Validate required fields
     if (
@@ -23,8 +16,7 @@ exports.createTeacherApplication = async (req, res) => {
       !city ||
       !pincode ||
       !current_position ||
-      !language ||
-      !teacherAvailability
+      !language
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
@@ -52,7 +44,6 @@ exports.createTeacherApplication = async (req, res) => {
       pincode,
       current_position,
       language,
-      teacher_availability,
     });
 
     await teacherApplication.save();
