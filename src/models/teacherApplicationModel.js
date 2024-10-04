@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { isDate, isTime } = require("validator");
 
 const teacherApplicationSchema = new mongoose.Schema({
   teacher_id: {
@@ -38,10 +39,14 @@ const teacherApplicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  language:{
-    type:String,
-    required:true
-  }
+  language: {
+    type: String,
+    required: true,
+  },
+  teacher_availability: {
+    type: TimeRanges,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("TeacherApplication", teacherApplicationSchema);
