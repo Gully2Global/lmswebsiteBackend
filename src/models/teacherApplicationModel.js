@@ -43,10 +43,10 @@ const teacherApplicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  teacher_availability: {
-    type: TimeRanges,
-    required: true,
-  },
+  // teacher_availability: {
+  //   type: TimeRanges,
+  //   required: true,
+  // },
 });
 
 module.exports = mongoose.model("TeacherApplication", teacherApplicationSchema);
