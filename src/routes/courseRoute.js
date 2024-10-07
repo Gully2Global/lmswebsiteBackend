@@ -9,4 +9,4 @@ router.get('/courses/:id', courseController.getCourseById); // GET a specific co
 router.put('/updatecourse/:id', courseController.updateCourse); // PUT update a specific course by ID
 router.delete('/deletecourse/:id', courseController.deleteCourse); // DELETE a specific course by ID
 
-module.exports = router;
+module.exports = router;   

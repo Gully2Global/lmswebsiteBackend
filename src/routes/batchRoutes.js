@@ -11,4 +11,11 @@ router.post(
   batchController.createBatch
 );
 
+router.get("/getAllBatches", authMiddleware, batchController.getAllBatches);
+router.get(
+  "/getBatchForStudent",
+  authorizeRole("student"),
+  authMiddleware,
+  batchController.getBatchForStudent
+);
 module.exports = router;

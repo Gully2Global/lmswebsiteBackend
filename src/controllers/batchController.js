@@ -9,7 +9,7 @@ exports.createBatch = async (req, res) => {
       start_date,
       no_of_classes,
       teacher_id,
-      student_ids,
+      students,
       contentMaterial,
       date,
     } = req.body;
@@ -18,7 +18,7 @@ exports.createBatch = async (req, res) => {
       !start_date ||
       !no_of_classes ||
       !teacher_id ||
-      !student_ids ||
+      !students ||
       !contentMaterial ||
       !date
     ) {
@@ -29,7 +29,7 @@ exports.createBatch = async (req, res) => {
       start_date,
       no_of_classes,
       teacher_id,
-      student_ids,
+      students,
       contentMaterial,
       date,
     });
@@ -37,6 +37,103 @@ exports.createBatch = async (req, res) => {
     res.status(201).json({ message: "Batch created successfully" });
   } catch (error) {
     console.error("Error creating batch:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+// src/controllers/batchController.js
+
+exports.getAllBatches = async (req, res) => {
+  try {
+    const {
+      start_date,
+      end_date,
+      teacher_id,
+      students,
+      sort_by,
+      page = 1,
+      limit = 10,
+    } = req.query;
+
+    // Build a query object
+    let query = {};
+
+    // Filter by date range
+    if (start_date && end_date) {
+      query.start_date = {
+        $gte: new Date(start_date),
+        $lte: new Date(end_date),
+      };
+    } else if (start_date) {
+      query.start_date = { $gte: new Date(start_date) };
+    } else if (end_date) {
+      query.start_date = { $lte: new Date(end_date) };
+    }
+
+    // Filter by teacher_id
+    if (teacher_id) {
+      query.teacher_id = teacher_id;
+    }
+
+    // Filter by student_id
+    if (students) {
+      query.students = students;
+    }
+
+    // Build sort object
+    let sort = {};
+    if (sort_by === "newest") {
+      sort.date = -1; // Sort by creation date descending
+    } else if (sort_by === "oldest") {
+      sort.date = 1; // Sort by creation date ascending
+    } else if (sort_by === "start_date_asc") {
+      sort.start_date = 1; // Sort by start_date ascending
+    } else if (sort_by === "start_date_desc") {
+      sort.start_date = -1; // Sort by start_date descending
+    }
+
+    // Pagination options
+    const options = {
+      page: parseInt(page),
+      limit: parseInt(limit),
+      sort: sort,
+      populate: [
+        { path: "teacher_id", select: "name email" },
+        { path: "students", select: "name email" },
+      ],
+    };
+
+    // Execute the query with pagination
+    const batches = await Batch.paginate(query, options);
+
+    res.status(200).json({
+      message: "Batches fetched successfully",
+      batches: batches.docs,
+      totalPages: batches.totalPages,
+      currentPage: batches.page,
+    });
+  } catch (error) {
+    console.error("Error fetching batches:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+exports.getBatchForStudent = async (req, res) => {
+  try {
+    const { students} = req.params;
+
+    // Validate student_id
+    if (!students) {
+      return res.status(400).json({ error: "Student ID is required" });
+    }
+    const batches = await Batch.find({ students: students }).exec();
+
+    res.status(200).json({
+      message: "Batches fetched successfully",
+      batches,
+    });
+  } catch (error) {
+    console.error("Error fetching batches:", error);
     res.status(500).json({ error: "Server error" });
   }
 };

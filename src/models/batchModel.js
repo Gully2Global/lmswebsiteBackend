@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const batchSchema = new mongoose.Schema({
   batch_name: { type: String, required: true },
@@ -9,7 +10,7 @@ const batchSchema = new mongoose.Schema({
     ref: "Teacher",
     required: true,
   },
-  student_ids: [
+  students: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Student",
@@ -26,7 +27,8 @@ batchSchema.virtual("no_of_participant").get(function () {
   return this.students.length;
 });
 
-// Ensure virtual fields are serialized
+batchSchema.plugin(mongoosePaginate);
+
 batchSchema.set("toJSON", { virtuals: true });
 batchSchema.set("toObject", { virtuals: true });
 

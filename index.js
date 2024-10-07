@@ -14,6 +14,7 @@ const timeSlotRoutes = require("./src/routes/timeSlotRoutes");
 const quizRoutes = require("./src/routes/quizRoutes");
 const responseRoutes = require("./src/routes/responseRoutes");
 const createBatchRoutes = require("./src/routes/batchRoutes");
+const circularNotificationRoutes = require("./src/routes/circularNotificationRoutes");
 
 const createCustomPackageRoutes = require("./src/routes/createCustomPackageRoutes");
 require("dotenv").config();
@@ -50,6 +51,7 @@ app.use("/responses", responseRoutes);
 
 app.use("/customPackages", createCustomPackageRoutes);
 app.use("/batches", createBatchRoutes);
+app.use("/circularNotifications", circularNotificationRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
