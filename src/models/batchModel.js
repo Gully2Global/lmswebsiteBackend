@@ -9,15 +9,25 @@ const batchSchema = new mongoose.Schema({
     ref: "Teacher",
     required: true,
   },
-  student_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Student",
-    required: true,
-  },
-  contentMaterial: { type: String, },
+  student_ids: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+      required: true,
+    },
+  ],
+  contentMaterial: { type: String },
   date: { type: Date, default: Date.now },
-  no_of_participant: { type: Number, default: 0 },
-  meeting_link: { type: String, required: true },
+
+  meeting_link: { type: String },
 });
+
+batchSchema.virtual("no_of_participant").get(function () {
+  return this.students.length;
+});
+
+// Ensure virtual fields are serialized
+batchSchema.set("toJSON", { virtuals: true });
+batchSchema.set("toObject", { virtuals: true });
 
 module.exports = mongoose.model("Batch", batchSchema);
