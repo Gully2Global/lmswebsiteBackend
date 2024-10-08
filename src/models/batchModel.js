@@ -23,10 +23,6 @@ const batchSchema = new mongoose.Schema({
   meeting_link: { type: String },
 });
 
-batchSchema.virtual("no_of_participant").get(function () {
-  return this.students.length;
-});
-
 batchSchema.plugin(mongoosePaginate);
 
 batchSchema.set("toJSON", { virtuals: true });

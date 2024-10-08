@@ -9,12 +9,13 @@ const subjectRoutes = require("./src/routes/subjectRoutes");
 const bannerRoutes = require("./src/routes/bannerRoute");
 const courseRoutes = require("./src/routes/courseRoute");
 const customerQueryRoutes = require("./src/routes/customerQueriesRoutes");
-
+const zoomRoutes = require("./src/routes/zoomRoutes");
 const timeSlotRoutes = require("./src/routes/timeSlotRoutes");
 const quizRoutes = require("./src/routes/quizRoutes");
 const responseRoutes = require("./src/routes/responseRoutes");
 const createBatchRoutes = require("./src/routes/batchRoutes");
 const circularNotificationRoutes = require("./src/routes/circularNotificationRoutes");
+const meetingRoutes = require("./src/routes/meetingRoutes");
 
 const createCustomPackageRoutes = require("./src/routes/createCustomPackageRoutes");
 require("dotenv").config();
@@ -52,6 +53,8 @@ app.use("/responses", responseRoutes);
 app.use("/customPackages", createCustomPackageRoutes);
 app.use("/batches", createBatchRoutes);
 app.use("/circularNotifications", circularNotificationRoutes);
+app.use("/zoom", zoomRoutes);
+app.use("/meetings", meetingRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
