@@ -26,4 +26,18 @@ router.get(
   adminPackageController.getAllPackages
 );
 
+router.delete(
+  "/packages/:id",
+  authMiddleware,
+  authorizeRole("admin"),
+  adminPackageController.deletePackage
+);
+router.put(
+  "/updatePackages/:id",
+  authMiddleware,
+  authorizeRole("admin"),
+  upload.single("image"),
+  adminPackageController.updatePackage
+);
+
 module.exports = router;
