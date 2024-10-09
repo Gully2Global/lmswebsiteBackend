@@ -1,6 +1,7 @@
 // src/app.js
 const express = require("express");
 const cors = require("cors");
+const packageRoutes = require("./src/routes/adminPackageRoutes");
 const helmet = require("helmet");
 const connectDB = require("./src/config/database");
 const authRoutes = require("./src/routes/authRoutes");
@@ -56,6 +57,7 @@ app.use("/circularNotifications", circularNotificationRoutes);
 app.use("/zoom", zoomRoutes);
 app.use("/meetings", meetingRoutes);
 app.use("/payouts", payoutRoutes);
+app.use("/packages", packageRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
