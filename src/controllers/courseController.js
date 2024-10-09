@@ -4,9 +4,7 @@ const mongoose = require('mongoose');
 // Get all courses with populated fields
 exports.getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find()
-      .populate('title') // Populate the title from subjectModel
-      .populate('class'); // Populate the class from classModel
+    const courses = await Course.find();
     res.status(200).json(courses);
   } catch (error) {
     res.status(500).json({ error: error.message });
