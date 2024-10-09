@@ -52,6 +52,7 @@ app.use("/quizzes", quizRoutes);
 app.use("/responses", responseRoutes);
 
 app.use("/customPackages", createCustomPackageRoutes);
+
 app.use("/batches", createBatchRoutes);
 app.use("/circularNotifications", circularNotificationRoutes);
 app.use("/zoom", zoomRoutes);

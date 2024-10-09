@@ -44,7 +44,7 @@ const teacherApplicationSchema = new mongoose.Schema({
     required: true,
   },
   // teacher_availability: {
-  //   type: TimeRanges,
+  //   type: Date,
   //   required: true,
   // },
 });
