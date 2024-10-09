@@ -20,4 +20,4 @@ router.delete('/deletecourse/:id',
     authorizeRole("admin"),
     courseController.deleteCourse); // DELETE a specific course by ID
 
-module.exports = router;
+module.exports = router;   

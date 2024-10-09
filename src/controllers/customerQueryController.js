@@ -2,7 +2,6 @@
 
 const Quer = require("../models/customerQueriesModel");
 
-// Controller to handle sending customer queries
 exports.sendCustomerQuery = async (req, res) => {
   try {
     const { title, contactEmail, contactNumber, message } = req.body;
@@ -32,7 +31,7 @@ exports.sendCustomerQuery = async (req, res) => {
   }
 };
 
-// Controller to handle updating query status
+
 exports.updateQueryStatus = async (req, res) => {
   try {
     const { queryId } = req.params;
@@ -83,7 +82,7 @@ exports.getAllQueries = async (req, res) => {
       }
     }
 
-    // Fetch all queries with the applied filters
+
     const queries = await Quer.find(filter).sort({ dateQueried: -1 });
 
     res.status(200).json({

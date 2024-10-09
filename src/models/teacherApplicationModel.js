@@ -4,7 +4,7 @@ const { isDate, isTime } = require("validator");
 const teacherApplicationSchema = new mongoose.Schema({
   teacher_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference the User model
+    ref: "User", 
     required: true,
   },
   resume_link: {

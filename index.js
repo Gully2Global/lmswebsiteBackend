@@ -1,6 +1,7 @@
 // src/app.js
 const express = require("express");
 const cors = require("cors");
+const packageRoutes = require("./src/routes/adminPackageRoutes");
 const helmet = require("helmet");
 const connectDB = require("./src/config/database");
 const authRoutes = require("./src/routes/authRoutes");
@@ -9,11 +10,14 @@ const subjectRoutes = require("./src/routes/subjectRoutes");
 const bannerRoutes = require("./src/routes/bannerRoute");
 const courseRoutes = require("./src/routes/courseRoute");
 const customerQueryRoutes = require("./src/routes/customerQueriesRoutes");
-
+const zoomRoutes = require("./src/routes/zoomRoutes");
 const timeSlotRoutes = require("./src/routes/timeSlotRoutes");
-const quizRoutes = require('./src/routes/quizRoutes');
-const responseRoutes = require('./src/routes/responseRoutes');
-
+const quizRoutes = require("./src/routes/quizRoutes");
+const responseRoutes = require("./src/routes/responseRoutes");
+const createBatchRoutes = require("./src/routes/batchRoutes");
+const circularNotificationRoutes = require("./src/routes/circularNotificationRoutes");
+const meetingRoutes = require("./src/routes/meetingRoutes");
+const payoutRoutes = require("./src/routes/payoutRoutes");
 const createCustomPackageRoutes = require("./src/routes/createCustomPackageRoutes");
 require("dotenv").config();
 
@@ -43,13 +47,19 @@ app.use("/banners", bannerRoutes);
 app.use("/courses", courseRoutes);
 app.use("/queries", customerQueryRoutes);
 
-app.use("/timeslots",timeSlotRoutes);
+app.use("/timeSlots", timeSlotRoutes);
 app.use("/quizzes", quizRoutes);
 app.use("/responses", responseRoutes);
 
 app.use("/customPackages", createCustomPackageRoutes);
 
-0
+app.use("/batches", createBatchRoutes);
+app.use("/circularNotifications", circularNotificationRoutes);
+app.use("/zoom", zoomRoutes);
+app.use("/meetings", meetingRoutes);
+app.use("/payouts", payoutRoutes);
+app.use("/packages", packageRoutes);
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
