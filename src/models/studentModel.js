@@ -9,9 +9,26 @@ const studentSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  role: { type: String, enum: ["student", "admin"], required: true },
 
+  subscribed_Package: { type: mongoose.Schema.Types.ObjectId, ref: "Package" },
+  is_paid: {
+    type: Boolean,
+    default: false,
+  },
+  subscription_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Subscription",
+  },
 
+  payment_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Payment",
+  },
+
+  created_at: { type: Date, default: Date.now },
+  last_online: { type: Date, default: Date.now },
+
+  role: { type: String, enum: ["student"], required: true },
 });
 
 module.exports = mongoose.model("Student", studentSchema);

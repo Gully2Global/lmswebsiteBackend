@@ -1,7 +1,7 @@
 // src/controllers/authController.js
-
-const {admin }= require("../services/firebaseService");
-
+const { admin } = require("../services/firebaseService");
+const mongoose = require("mongoose");
+const Student = require("../models/studentModel");
 const User = require("../models/userModel");
 
 /**
@@ -62,9 +62,27 @@ exports.signup = async (req, res) => {
 
     await user.save();
 
-    res
-      .status(201)
-      .json({ message: "User account created successfully", user });
+    // If the role is 'student', create a Student document
+    let student;
+    if (userRole === "student") {
+      // Generate a unique student ID (e.g., use the user ID or a custom method)
+      const studentId = new mongoose.Types.ObjectId();
+
+      student = new Student({
+        auth_id: uid,
+        student_id: studentId,
+        user_id: user._id,
+        role: "student",
+      });
+
+      await student.save();
+    }
+
+    res.status(201).json({
+      message: "User account created successfully",
+      user,
+      student: student || null, // Include student info if created
+    });
   } catch (error) {
     console.error("Error during signup:", error);
     res.status(500).json({ error: "Internal server error" });
