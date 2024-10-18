@@ -19,6 +19,7 @@ const circularNotificationRoutes = require("./src/routes/circularNotificationRou
 const meetingRoutes = require("./src/routes/meetingRoutes");
 const payoutRoutes = require("./src/routes/payoutRoutes");
 const createCustomPackageRoutes = require("./src/routes/createCustomPackageRoutes");
+const teacherRoutes = require("./src/routes/teacherRoutes");
 
 const paymentRoutes = require("./src/routes/paymentRoutes");
 require("dotenv").config();
@@ -62,6 +63,7 @@ app.use("/meetings", meetingRoutes);
 app.use("/payouts", payoutRoutes);
 app.use("/packages", packageRoutes);
 app.use("/payment", paymentRoutes);
+app.use("/teachers", teacherRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
